@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,6 +56,7 @@ export default function RootLayout({ children }) {
               <Navbar />
               <div className="w-full h-full flex relative top-[-5rem] items-center justify-center">
                 {children}
+                <Toaster richColors position="top-center" />
               </div>
             </ThemeProvider>
           </React.StrictMode>

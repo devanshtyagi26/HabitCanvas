@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import { toast } from "sonner";
 
 function SignUpPage() {
   const router = useRouter();
@@ -32,10 +33,19 @@ function SignUpPage() {
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
       console.log("Signup Success", response.data);
+
+      toast.success("Verification email sent", {
+        description: "Please check your inbox to verify your account.",
+        duration: 6000, // optional: in milliseconds
+      });
+
       router.push("/login");
     } catch (error) {
       console.log("Signup Failed");
-      toast.error(error.message);
+      console.log(error);
+      toast.error("Signup failed", {
+        description: error?.response?.data?.message || "Something went wrong.",
+      });
     } finally {
       setLoading(false);
     }
