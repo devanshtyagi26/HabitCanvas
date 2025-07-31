@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Eye, EyeOff } from "lucide-react";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -22,7 +23,8 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [error, setError] = useState(null);
-
+  const [showPassword, setShowPassword] = useState(false);
+  
   const { email, password } = user;
 
   useEffect(() => {
@@ -63,6 +65,7 @@ const LoginPage = () => {
           Enter your credentials to continue
         </p>
       </CardHeader>
+      <hr />
 
       <CardContent>
         {error && (
@@ -99,17 +102,28 @@ const LoginPage = () => {
 
           <div className="space-y-1">
             <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={handleInputChange}
-              disabled={loading}
-              required
-              autoComplete="current-password"
-            />
+            <div className="relative">
+              <Input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                value={password}
+                onChange={handleInputChange}
+                disabled={loading}
+                required
+                autoComplete="current-password"
+                className="pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 right-2 flex items-center text-muted-foreground hover:text-foreground"
+                tabIndex={-1}
+              >
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+              </button>
+            </div>
           </div>
 
           <Button

@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Eye, EyeOff } from "lucide-react";
 
 function SignUpPage() {
   const router = useRouter();
@@ -24,6 +25,7 @@ function SignUpPage() {
   });
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSignup = async () => {
     try {
@@ -34,19 +36,14 @@ function SignUpPage() {
     } catch (error) {
       console.log("Signup Failed");
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (
-      user.email.length > 0 &&
-      user.password.length > 0 &&
-      user.userName.length > 0
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
+    const { email, password, userName } = user;
+    setButtonDisabled(!(email && password && userName));
   }, [user]);
 
   return (
@@ -56,10 +53,10 @@ function SignUpPage() {
     >
       <CardHeader className="text-center space-y-1">
         <CardTitle className="text-xl font-semibold text-foreground">
-          {loading ? "Processing" : "Signup"}
+          {loading ? "Creating your account..." : "Create an Account"}
         </CardTitle>
         <p className="text-sm text-muted-foreground">
-          Enter your credentials to continue
+          Fill in the details below to get started
         </p>
       </CardHeader>
       <hr />
@@ -73,7 +70,7 @@ function SignUpPage() {
           noValidate
         >
           <div className="space-y-1">
-            <Label htmlFor="userName">User Name</Label>
+            <Label htmlFor="userName">Username</Label>
             <Input
               id="userName"
               name="userName"
@@ -87,7 +84,7 @@ function SignUpPage() {
             />
           </div>
           <div className="space-y-1">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">Email Address</Label>
             <Input
               id="email"
               name="email"
@@ -104,26 +101,38 @@ function SignUpPage() {
           </div>
           <div className="space-y-1">
             <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              value={user.password}
-              onChange={(e) => {
-                setUser({ ...user, password: e.target.value });
-              }}
-              disabled={loading}
-              required
-              autoComplete="current-password"
-            />
+            <div className="relative">
+              <Input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                value={user.password}
+                onChange={(e) => {
+                  setUser({ ...user, password: e.target.value });
+                }}
+                disabled={loading}
+                required
+                autoComplete="new-password"
+                className="pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 right-2 flex items-center text-muted-foreground hover:text-foreground"
+                tabIndex={-1}
+              >
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+              </button>
+            </div>
           </div>
+
           <Button
             type="submit"
             disabled={buttonDisabled || loading}
             className="w-full"
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? "Signing up..." : "Sign Up"}
           </Button>
         </form>
       </CardContent>
@@ -135,7 +144,7 @@ function SignUpPage() {
           href="/login"
           className="text-primary hover:underline transition-colors"
         >
-          Visit Login Page
+          Log In
         </Link>
       </CardFooter>
     </Card>
