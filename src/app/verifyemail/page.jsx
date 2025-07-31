@@ -1,56 +1,73 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { toast } from "sonner";
 
-function VerifyEmail() {
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+
+export default function VerifyEmail() {
   const searchParams = useSearchParams();
-  const urlToken = searchParams.get("token");
-  const [token, setToken] = useState("");
-  const [verified, setVerified] = useState(false);
-  const [error, setError] = useState(false);
+  const [status, setStatus] =
+    (useState < "loading") | "verified" | ("error" > "loading");
 
-  const verifyUserEmail = async () => {
-    try {
-      await axios.post("/api/users/verifyemail", { token });
-      setVerified(true);
-      setError(false);
-    } catch (error) {
-      setError(true);
-      console.log(error.response.data);
-    }
-  };
+  const token = searchParams.get("token");
 
   useEffect(() => {
-    setError(false);
-    setToken(urlToken || "");
-  }, []);
-  useEffect(() => {
-    setError(false);
-    if (token.length > 0) {
-      verifyUserEmail();
-    }
+    const verifyUserEmail = async () => {
+      if (!token) {
+        setStatus("error");
+        toast.error("Verification token not found in URL.");
+        return;
+      }
+
+      try {
+        await axios.post("/api/users/verifyemail", { token });
+        setStatus("verified");
+        toast.success("Email verified successfully!");
+      } catch (err) {
+        setStatus("error");
+        toast.error(err?.response?.data?.message || "Verification failed.");
+      }
+    };
+
+    verifyUserEmail();
   }, [token]);
 
   return (
-    <div>
-      <h1>Verify Email</h1>
-      <hr />
-      <h2>{token ? `${token}` : "no token"}</h2>
-      {verified && (
-        <>
-          <h2>Verified</h2>
-          <Link href="/login">Login</Link>
-        </>
-      )}
-      {error && (
-        <>
-          <h2>Error</h2>
-        </>
-      )}
-    </div>
+    <Card className="w-full max-w-md mx-auto mt-20 text-center">
+      <CardHeader>
+        <CardTitle>Email Verification</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {status === "loading" && (
+          <>
+            <Skeleton className="w-32 h-5 mx-auto bg-gray-300" />
+            <p className="text-muted-foreground">Verifying your email...</p>
+          </>
+        )}
+
+        {status === "verified" && (
+          <>
+            <p className="text-green-600 font-medium">
+              ✅ Your email has been verified!
+            </p>
+            <Link href="/login">
+              <Button className="mt-2">Go to Login</Button>
+            </Link>
+          </>
+        )}
+
+        {status === "error" && (
+          <p className="text-red-500 font-medium">
+            ❌ Invalid or expired verification link.
+          </p>
+        )}
+      </CardContent>
+    </Card>
   );
 }
-
-export default VerifyEmail;
