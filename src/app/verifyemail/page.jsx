@@ -12,8 +12,7 @@ import { Button } from "@/components/ui/button";
 
 export default function VerifyEmail() {
   const searchParams = useSearchParams();
-  const [status, setStatus] =
-    (useState < "loading") | "verified" | ("error" > "loading");
+  const [status, setStatus] = useState("loading");
 
   const token = searchParams.get("token");
 
