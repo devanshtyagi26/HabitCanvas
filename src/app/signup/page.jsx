@@ -44,7 +44,7 @@ function SignUpPage() {
       console.log("Signup Failed");
       console.log(error);
       toast.error("Signup failed", {
-        description: error?.response?.data?.message || "Something went wrong.",
+        description: error?.response?.data?.error || "Something went wrong.",
       });
     } finally {
       setLoading(false);
