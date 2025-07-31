@@ -61,88 +61,101 @@ a {
 }
 
 :root {
-  /* Pastel greenish and soft accent palette for light mode */
+  /* Natural-modern pastel palette */
   --pastel-mint: #b6eadc;
-  --pastel-seafoam: #b8eac7;
+  --pastel-seafoam: #cde9d6;
   --pastel-lime: #eafec8;
-  --pastel-green: #bae1c4;
-  --pastel-aqua: #a7ead7;
-  --pastel-lemon: #fafec8;
-  --pastel-gray: #e0eff3;
+  --pastel-beige: #f5f1e6;
+  --pastel-blush: #ffe8e1;
+  --pastel-pebble: #dcdcdc;
   --pastel-peach: #ffe5d4;
+
   --radius: 0.625rem;
 
-  /* Base colors updated for pastel greenish look */
-  --background: #f8fff8; /* light mint */
-  --foreground: #294837; /* deep green for text */
-  --card: #eafec8; /* pastel lime */
-  --card-foreground: #294837;
-  --popover: #b8eac7; /* pastel seafoam */
-  --popover-foreground: #294837;
-  --primary: #95e1d3; /* pastel aqua */
-  --primary-foreground: #294837;
-  --secondary: #b6eadc;
-  --secondary-foreground: #40513b;
-  --muted: #e0eff3;
-  --muted-foreground: #659b8d;
-  --accent: #d3f8e2;
-  --accent-foreground: #294837;
-  --destructive: #ffd6d6; /* pastel red/pink */
-  --border: #b6eadc;
-  --input: #b8eac7;
-  --ring: #b6eadc;
+  /* Base colors */
+  --background: #fcfcfb; /* light beige */
+  --foreground: #2e2e2e; /* deep neutral gray */
 
-  --chart-1: #95e1d3;
+  --card: #ffffff; /* true white card */
+  --card-foreground: #2e2e2e;
+
+  --popover: #f1f4f3;
+  --popover-foreground: #2e2e2e;
+
+  --primary: #a7ead7; /* muted mint */
+  --primary-foreground: #1e3d3a;
+
+  --secondary: #f0ede5; /* warm beige */
+  --secondary-foreground: #2e2e2e;
+
+  --muted: #ececec;
+  --muted-foreground: #666;
+
+  --accent: #ffe5d4; /* soft peach */
+  --accent-foreground: #2e2e2e;
+
+  --destructive: #ffd6d6; /* soft red */
+  --border: #e1e1e1;
+  --input: #f0f0f0;
+  --ring: #a7ead7;
+
+  --chart-1: #a7ead7;
   --chart-2: #fce38a;
-  --chart-3: #95e1e3;
-  --chart-4: #dff6fe;
-  --chart-5: #c8e5c4;
+  --chart-3: #ffe8e1;
+  --chart-4: #dcdcdc;
+  --chart-5: #c5d7bd;
 
-  --sidebar: #eafec8;
-  --sidebar-foreground: #294837;
-  --sidebar-primary: #b8eac7;
-  --sidebar-primary-foreground: #294837;
-  --sidebar-accent: #a7ead7;
-  --sidebar-accent-foreground: #294837;
-  --sidebar-border: #b6eadc;
-  --sidebar-ring: #b6eadc;
+  --sidebar: #f9f9f8;
+  --sidebar-foreground: #2e2e2e;
+  --sidebar-primary: #e8f2ef;
+  --sidebar-primary-foreground: #2e2e2e;
+  --sidebar-accent: #ffd6d6;
+  --sidebar-accent-foreground: #2e2e2e;
+  --sidebar-border: #e1e1e1;
+  --sidebar-ring: #a7ead7;
 }
 
 .dark {
-  /* Pastel green/dark background, maximize mint/aqua pop */
-  --background: #294837; /* deep forest green */
-  --foreground: #f8fff8; /* light mint for text */
-  --card: #34675c; /* muted green */
-  --card-foreground: #f8fff8;
-  --popover: #3a8d6b; /* pastel/dark teal */
-  --popover-foreground: #f8fff8;
-  --primary: #b8eac7; /* same as light, higher contrast */
-  --primary-foreground: #294837;
-  --secondary: #3a8d6b;
-  --secondary-foreground: #f8fff8;
-  --muted: #294837;
-  --muted-foreground: #8aabb8;
-  --accent: #95e1d3;
-  --accent-foreground: #294837;
-  --destructive: #ffe5d4; /* pastel peach */
-  --border: #3a8d6b;
-  --input: #3a8d6b;
-  --ring: #b8eac7;
+  --background: #1f1f1f; /* dark neutral base */
+  --foreground: #f4f4f4;
 
-  --chart-1: #b6eadc;
+  --card: #2a2a2a;
+  --card-foreground: #f4f4f4;
+
+  --popover: #333;
+  --popover-foreground: #f4f4f4;
+
+  --primary: #95e1d3;
+  --primary-foreground: #1a2d2b;
+
+  --secondary: #3a3a3a;
+  --secondary-foreground: #f4f4f4;
+
+  --muted: #2e2e2e;
+  --muted-foreground: #aaa;
+
+  --accent: #ffcabd;
+  --accent-foreground: #1f1f1f;
+
+  --destructive: #ffb3b3;
+  --border: #444;
+  --input: #333;
+  --ring: #95e1d3;
+
+  --chart-1: #95e1d3;
   --chart-2: #fce38a;
-  --chart-3: #b8eac7;
-  --chart-4: #d3f8e2;
-  --chart-5: #bae1c4;
+  --chart-3: #ffe8e1;
+  --chart-4: #c5d7bd;
+  --chart-5: #dcdcdc;
 
-  --sidebar: #34675c;
-  --sidebar-foreground: #f8fff8;
-  --sidebar-primary: #3a8d6b;
-  --sidebar-primary-foreground: #f8fff8;
+  --sidebar: #2a2a2a;
+  --sidebar-foreground: #f4f4f4;
+  --sidebar-primary: #3a3a3a;
+  --sidebar-primary-foreground: #f4f4f4;
   --sidebar-accent: #95e1d3;
-  --sidebar-accent-foreground: #294837;
-  --sidebar-border: #3a8d6b;
-  --sidebar-ring: #b8eac7;
+  --sidebar-accent-foreground: #1a2d2b;
+  --sidebar-border: #444;
+  --sidebar-ring: #95e1d3;
 }
 
 @layer base {
