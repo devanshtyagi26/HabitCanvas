@@ -4,6 +4,16 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 function SignUpPage() {
   const router = useRouter();
@@ -40,44 +50,95 @@ function SignUpPage() {
   }, [user]);
 
   return (
-    <div>
-      <h1>{loading ? "Processing" : "Signup"}</h1>
+    <Card
+      className="w-full max-w-sm border border-border shadow-sm rounded-xl"
+      aria-busy={loading}
+    >
+      <CardHeader className="text-center space-y-1">
+        <CardTitle className="text-xl font-semibold text-foreground">
+          {loading ? "Processing" : "Signup"}
+        </CardTitle>
+        <p className="text-sm text-muted-foreground">
+          Enter your credentials to continue
+        </p>
+      </CardHeader>
       <hr />
-      <label htmlFor="userName">userName</label>
-      <input
-        type="text"
-        id="userName"
-        value={user.userName}
-        onChange={(e) => {
-          setUser({ ...user, userName: e.target.value });
-        }}
-        placeholder="userName"
-      />
-      <label htmlFor="email">Email</label>
-      <input
-        type="text"
-        id="email"
-        value={user.email}
-        onChange={(e) => {
-          setUser({ ...user, email: e.target.value });
-        }}
-        placeholder="email"
-      />
-      <label htmlFor="password">Password</label>
-      <input
-        type="text"
-        id="password"
-        value={user.password}
-        onChange={(e) => {
-          setUser({ ...user, password: e.target.value });
-        }}
-        placeholder="password"
-      />
-      <button onClick={onSignup}>
-        {buttonDisabled ? "Fill the form" : "Signup"}
-      </button>
-      <Link href="/login">Visit Login Page</Link>
-    </div>
+      <CardContent>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSignup();
+          }}
+          className="space-y-4"
+          noValidate
+        >
+          <div className="space-y-1">
+            <Label htmlFor="userName">User Name</Label>
+            <Input
+              id="userName"
+              name="userName"
+              type="text"
+              placeholder="johnDoe"
+              value={user.userName}
+              onChange={(e) => {
+                setUser({ ...user, userName: e.target.value });
+              }}
+              disabled={loading}
+            />
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              value={user.email}
+              onChange={(e) => {
+                setUser({ ...user, email: e.target.value });
+              }}
+              disabled={loading}
+              required
+              autoComplete="email"
+            />
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="••••••••"
+              value={user.password}
+              onChange={(e) => {
+                setUser({ ...user, password: e.target.value });
+              }}
+              disabled={loading}
+              required
+              autoComplete="current-password"
+            />
+          </div>
+          <Button
+            type="submit"
+            disabled={buttonDisabled || loading}
+            className="w-full"
+          >
+            {loading ? "Signing in..." : "Sign In"}
+          </Button>
+        </form>
+      </CardContent>
+      <CardFooter className="flex justify-center text-sm">
+        <span className="text-muted-foreground mr-1">
+          Already have an account?
+        </span>
+        <Link
+          href="/login"
+          className="text-primary hover:underline transition-colors"
+        >
+          Visit Login Page
+        </Link>
+      </CardFooter>
+    </Card>
   );
 }
 
