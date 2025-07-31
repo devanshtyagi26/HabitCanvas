@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
+import { Separator } from "@/components/ui/separator";
 
 function SignUpPage() {
   const router = useRouter();
@@ -69,7 +70,7 @@ function SignUpPage() {
           Fill in the details below to get started
         </p>
       </CardHeader>
-      <hr />
+      <Separator className="my-2" />
       <CardContent>
         <form
           onSubmit={(e) => {

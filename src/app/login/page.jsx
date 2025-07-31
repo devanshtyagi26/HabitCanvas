@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const LoginPage = () => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const { email, password } = user;
 
   useEffect(() => {
@@ -65,7 +66,7 @@ const LoginPage = () => {
           Enter your credentials to continue
         </p>
       </CardHeader>
-      <hr />
+      <Separator className="my-2" />
 
       <CardContent>
         {error && (
