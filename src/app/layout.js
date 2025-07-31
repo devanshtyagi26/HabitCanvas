@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "FurSure",
-  description: "Differentiate between cat and dog",
+  title: "HabitCanvas",
+  description: "Daily Haabit Tracker",
 };
 
 export default function RootLayout({ children }) {
