@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import HabitTracker from "@/components/Habits";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -59,50 +60,55 @@ export default function ProfilePage() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto mt-10 shadow-md border-border rounded-xl">
-      <CardHeader>
-        <CardTitle className="text-center text-2xl">Your Profile</CardTitle>
-      </CardHeader>
+    <>
+      <Card className="w-full max-w-md mx-auto mt-10 shadow-md border-border rounded-xl">
+        <CardHeader>
+          <CardTitle className="text-center text-2xl">Your Profile</CardTitle>
+        </CardHeader>
 
-      <Separator className="my-2" />
+        <Separator className="my-2" />
 
-      <CardContent className="space-y-4 text-center">
-        {loading ? (
-          <Skeleton className="h-5 w-80 mx-auto bg-gray-300" />
-        ) : data === null ? (
-          <p className="text-sm text-muted-foreground">
-            Click “Get User Details” to load your profile.
-          </p>
-        ) : data === "0" ? (
-          <p className="text-sm text-muted-foreground">No user ID found.</p>
-        ) : (
-          <p className="text-sm text-muted-foreground">
-            User ID:{" "}
-            <Link
-              href={`/profile/${data}`}
-              className="text-primary hover:underline break-all"
-            >
-              {data}
-            </Link>
-          </p>
-        )}
-      </CardContent>
+        <CardContent className="space-y-4 text-center">
+          {loading ? (
+            <Skeleton className="h-5 w-80 mx-auto bg-gray-300" />
+          ) : data === null ? (
+            <p className="text-sm text-muted-foreground">
+              Click “Get User Details” to load your profile.
+            </p>
+          ) : data === "0" ? (
+            <p className="text-sm text-muted-foreground">No user ID found.</p>
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              User ID:{" "}
+              <Link
+                href={`/profile/${data}`}
+                className="text-primary hover:underline break-all"
+              >
+                {data}
+              </Link>
+            </p>
+          )}
+        </CardContent>
 
-      <Separator className="my-2" />
+        <Separator className="my-2" />
 
-      <CardFooter className="flex flex-col space-y-2">
-        <Button onClick={logout} className="w-full">
-          Logout
-        </Button>
-        <Button
-          onClick={getUserDetails}
-          variant="secondary"
-          className="w-full"
-          disabled={loading}
-        >
-          {loading ? "Loading..." : "Get User Details"}
-        </Button>
-      </CardFooter>
-    </Card>
+        <CardFooter className="flex flex-col space-y-2">
+          <Button onClick={logout} className="w-full">
+            Logout
+          </Button>
+          <Button
+            onClick={getUserDetails}
+            variant="secondary"
+            className="w-full"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Get User Details"}
+          </Button>
+        </CardFooter>
+      </Card>
+      <Card>
+        <HabitTracker />
+      </Card>
+    </>
   );
 }
