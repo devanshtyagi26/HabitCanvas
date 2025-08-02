@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-// import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -46,6 +45,7 @@ function SignUpPage() {
       console.log(error);
       toast.error("Signup failed", {
         description: error?.response?.data?.error || "Something went wrong.",
+        duration: 6000, // optional: in milliseconds
       });
     } finally {
       setLoading(false);

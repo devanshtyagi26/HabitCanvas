@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -17,13 +16,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { toast } from "sonner";
 
 const LoginPage = () => {
   const router = useRouter();
   const [user, setUser] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
   const { email, password } = user;
@@ -40,14 +39,14 @@ const LoginPage = () => {
   const onLogin = async () => {
     try {
       setLoading(true);
-      setError(null);
       await axios.post("/api/users/login", user);
       toast.success("Login successful!");
       router.push("/profile");
     } catch (error) {
-      const message = error.response?.data?.message || "Login failed";
-      setError(message);
-      toast.error(message);
+      toast.error("Login failed", {
+        description: error?.response?.data?.message || "Something went wrong.",
+        duration: 6000, // optional: in milliseconds
+      });
     } finally {
       setLoading(false);
     }
@@ -69,15 +68,6 @@ const LoginPage = () => {
       <Separator className="my-2" />
 
       <CardContent>
-        {error && (
-          <p
-            className="text-red-500 text-sm mb-2"
-            role="alert"
-            aria-live="assertive"
-          >
-            {error}
-          </p>
-        )}
         <form
           onSubmit={(e) => {
             e.preventDefault();
